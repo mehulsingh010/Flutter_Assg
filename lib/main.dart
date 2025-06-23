@@ -33,11 +33,11 @@ class ProfileCardPage extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 50,
-                  backgroundImage: AssetImage('asset/profile_image.jpg'),
+                  backgroundImage: AssetImage('profile_image.jpg'),
                 ),
 
                 Text(
-                  'mehul charak',
+                  'Mehul Charak',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 Text(
@@ -45,7 +45,7 @@ class ProfileCardPage extends StatelessWidget {
                   style: TextStyle(fontSize: 14),
                 ),
                 ElevatedButton(
-                  style: TextButton.styleFrom(backgroundColor: Colors.blue),
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                   onPressed: null,
                   child: Text("Follow"),
                 ),
@@ -54,7 +54,6 @@ class ProfileCardPage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BackButton(color: Colors.black),
     );
   }
 }
