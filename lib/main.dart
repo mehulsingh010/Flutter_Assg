@@ -23,7 +23,7 @@ class ProfileCardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("ProfileCard")),
+      appBar: AppBar(title: Text("ProfileCard"), centerTitle: true),
       body: Center(
         child: Card(
           child: Padding(
@@ -33,20 +33,28 @@ class ProfileCardPage extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 50,
-                  backgroundImage: AssetImage('profile_image.jpg'),
+                  backgroundImage: AssetImage('assets/profile_image.jpg'),
                 ),
 
+                SizedBox(height: 12),
                 Text(
                   'Mehul Charak',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
+                SizedBox(height: 12),
                 Text(
                   "I am a Intern at Josh Software as a devloper .",
                   style: TextStyle(fontSize: 14),
                 ),
+                SizedBox(height: 12),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                  onPressed: null,
+                  onPressed: () {
+                    final snackBar = SnackBar(
+                      content: const Text("Follow Button is pressed"),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  },
                   child: Text("Follow"),
                 ),
               ],
