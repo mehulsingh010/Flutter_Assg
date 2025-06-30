@@ -2,16 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_assg/constants/colors.dart';
 import 'package:flutter_assg/model/todo.dart';
 import 'package:flutter_assg/widgets/todo_item.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_assg/provider/todo_provider.dart';
 
-class Home extends StatefulWidget {
-  Home({super.key});
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  final todoList = ToDo.todoList();
-  final _todoController = TextEditingController();
+class Home extends StatelessWidget {
+  final TextEditingController _todoController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,25 +19,25 @@ class _HomeState extends State<Home> {
           children: [
             searchBox(),
             Expanded(
-              child: ListView(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 50, bottom: 20),
-                    child: Text(
-                      'All ToDos',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w500,
+              child: Consumer<TodoProvider>(
+                builder: (context, todoProvider, child) {
+                  return ListView(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: 50, bottom: 20),
+                        child: Text(
+                          'All ToDos',
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  for (ToDo todo in todoList)
-                    ToDoItem(
-                      todo: todo,
-                      onToDoChanged: _handleToDoChange,
-                      onDeleteItem: _deleteToDoItem,
-                    ),
-                ],
+                      for (ToDo todo in todoProvider.todos)
+                        ToDoItem(todo: todo),
+                    ],
+                  );
+                },
               ),
             ),
           ],
@@ -84,7 +79,14 @@ class _HomeState extends State<Home> {
               width: 60,
               child: ElevatedButton(
                 onPressed: () {
-                  _addToDoItem(_todoController.text);
+                  final text = _todoController.text;
+                  if (text.isNotEmpty) {
+                    Provider.of<TodoProvider>(
+                      context,
+                      listen: false,
+                    ).addTodo(text);
+                    _todoController.clear();
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   shape: CircleBorder(),
@@ -105,33 +107,6 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
-  }
-
-  void _handleToDoChange(ToDo todo) {
-    setState(() {
-      todo.isDone = !todo.isDone;
-    });
-  }
-
-  void _deleteToDoItem(String id) {
-    setState(() {
-      todoList.removeWhere((item) => item.id == id);
-    });
-  }
-
-  void _addToDoItem(String todoText) {
-    if (todoText.isNotEmpty) {
-      setState(() {
-        todoList.add(
-          ToDo(
-            id: DateTime.now().millisecondsSinceEpoch.toString(),
-            todoText: todoText,
-          ),
-        );
-        //to clear the text field after adding a todo item
-        _todoController.clear();
-      });
-    }
   }
 
   Widget searchBox() {
