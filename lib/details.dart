@@ -5,8 +5,8 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final receivedMessage =
-        ModalRoute.of(context)?.settings.arguments as String;
+    final args = ModalRoute.of(context)?.settings.arguments;
+    final receivedMessage = args is String ? args : 'No data received';
     return Scaffold(
       appBar: AppBar(
         title: Text('Details Page'),
