@@ -30,6 +30,9 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  static final RegExp _emailRegExp = RegExp(
+    r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$',
+  );
   //  dispose of TextEditingController in a StatefulWidget
   @override
   void dispose() {
@@ -75,10 +78,8 @@ class _LoginPageState extends State<LoginPage> {
                         onChanged: (String value) {},
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter correct email';
-                          } else if (!RegExp(
-                            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$',
-                          ).hasMatch(value)) {
+                            return 'Please enter an email';
+                          } else if (!_emailRegExp.hasMatch(value)) {
                             return 'Please enter a valid email';
                           }
                           return null;
