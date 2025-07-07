@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
               '/details',
               arguments: messageToSend,
             );
-            if (result != null) {
+            if (result != null && context.mounted) {
               ScaffoldMessenger.of(
                 context,
               ).showSnackBar(SnackBar(content: Text('Data is : $result')));
