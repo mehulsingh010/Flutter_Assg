@@ -116,8 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 35),
                       child: ElevatedButton(
                         onPressed: () {
-                          if (_formKey.currentState != null &&
-                              _formKey.currentState!.validate()) {
+                          if (_formKey.currentState?.validate() ?? false) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text('Login Successful')),
                             );
