@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_assg/details.dart';
-import 'package:flutter_assg/home.dart';
+import 'routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,10 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      routes: {
-        '/': (context) => const HomeScreen(),
-        '/details': (context) => const DetailsScreen(),
-      },
+      routes: AppRoutes.routes,
     );
   }
 }
