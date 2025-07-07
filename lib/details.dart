@@ -10,7 +10,7 @@ class DetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Details Page'),
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.surface,
       ),
       body: Center(
         child: Column(
